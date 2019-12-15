@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>/home/</title>
+    <link>/</link>
+    <description>Recent content on /home/</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 12 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>about</title>
+      <link>/about/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>good (morning|afternoon|evening) I&#39;m Josh. I realized recently that I&#39;ve accumulated a lot of knowledge on scripting and capture-the-flag-ing, and decided I&#39;d consolidate that knowledge into a blog. I&#39;d been sitting on this domain for ages, and had a bit of fun building a site from scratch, but since I now have actual content to put out, I&#39;m opting for Hugo.
+Hopefully the posts here can help future users in learning to leverage tools like powershell and python to make computers do work for them.</description>
+    </item>
+    
+    <item>
+      <title>come ctf with me #1 - kringlecon 2019</title>
+      <link>/posts/kringlecon2019/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/kringlecon2019/</guid>
+      <description>Kringlecon 2: Turtle Doves! I&#39;m starting Kringlecon a day late this year, but I&#39;m hoping to be able to at least get as far as I got last year. This time, I plan on documenting my findings, and I&#39;ll be updating this as I go. My plan is for this to be one big post, almost in a journal/gamefaqs style.
+Escape Ed - CranberryPi This one is easy, but I did have to google since i&#39;m unfamiliar with ed.</description>
+    </item>
+    
+    <item>
+      <title>josh&#39;s posh #1 - parsing the useraccountcontrol property</title>
+      <link>/posts/joshs_posh_1_useraccountcontrol/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/joshs_posh_1_useraccountcontrol/</guid>
+      <description>This first one is the inspiration for the site. I&#39;ve been a bit obsessed with bitwise anding and parsing flags stored as bits ever since BPF in SANS SEC503. I ran into a situation recently where I wanted to check whether a smartcard was required for an account, but I didn&#39;t have access to active directory users and computers (dsa). A quick google search told me that the value for &amp;ldquo;smartcard required&amp;rdquo; is 262144, which briefly confused me, since that same search also told me basically all those checkboxes on the account screen are governed by the useraccountcontrol property.</description>
+    </item>
+    
+  </channel>
+</rss>

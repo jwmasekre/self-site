@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ctf on /home/</title>
+    <link>/tags/ctf/</link>
+    <description>Recent content in ctf on /home/</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 12 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>come ctf with me #1 - kringlecon 2019</title>
+      <link>/posts/kringlecon2019/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/kringlecon2019/</guid>
+      <description>Kringlecon 2: Turtle Doves! I&#39;m starting Kringlecon a day late this year, but I&#39;m hoping to be able to at least get as far as I got last year. This time, I plan on documenting my findings, and I&#39;ll be updating this as I go. My plan is for this to be one big post, almost in a journal/gamefaqs style.
+Escape Ed - CranberryPi This one is easy, but I did have to google since i&#39;m unfamiliar with ed.</description>
+    </item>
+    
+  </channel>
+</rss>

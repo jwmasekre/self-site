@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>josh&#39;s posh #1 - parsing the useraccountcontrol property :: /home/</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="This first one is the inspiration for the site. I&#39;ve been a bit obsessed with bitwise anding and parsing flags stored as bits ever since BPF in SANS SEC503. I ran into a situation recently where I wanted to check whether a smartcard was required for an account, but I didn&#39;t have access to active directory users and computers (dsa). A quick google search told me that the value for &amp;ldquo;smartcard required&amp;rdquo; is 262144, which briefly confused me, since that same search also told me basically all those checkboxes on the account screen are governed by the useraccountcontrol property."/>
+<meta name="keywords" content=", "/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/posts/joshs_posh_1_useraccountcontrol/" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="josh&#39;s posh #1 - parsing the useraccountcontrol property :: /home/ — " />
+<meta name="twitter:description" content="This first one is the inspiration for the site. I&#39;ve been a bit obsessed with bitwise anding and parsing flags stored as bits ever since BPF in SANS SEC503. I ran into a situation recently where I wanted to check whether a smartcard was required for an account, but I didn&#39;t have access to active directory users and computers (dsa). A quick google search told me that the value for &amp;ldquo;smartcard required&amp;rdquo; is 262144, which briefly confused me, since that same search also told me basically all those checkboxes on the account screen are governed by the useraccountcontrol property." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="josh masek" />
+<meta name="twitter:image" content="/img/Powershell_av_colors.ico">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="josh&#39;s posh #1 - parsing the useraccountcontrol property :: /home/ — ">
+<meta property="og:description" content="This first one is the inspiration for the site. I&#39;ve been a bit obsessed with bitwise anding and parsing flags stored as bits ever since BPF in SANS SEC503. I ran into a situation recently where I wanted to check whether a smartcard was required for an account, but I didn&#39;t have access to active directory users and computers (dsa). A quick google search told me that the value for &amp;ldquo;smartcard required&amp;rdquo; is 262144, which briefly confused me, since that same search also told me basically all those checkboxes on the account screen are governed by the useraccountcontrol property." />
+<meta property="og:url" content="/posts/joshs_posh_1_useraccountcontrol/" />
+<meta property="og:site_name" content="josh&#39;s posh #1 - parsing the useraccountcontrol property" />
+<meta property="og:image" content="/img/Powershell_av_colors.ico">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2019-12-11 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    terminal
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about</a></li>
+        
+      
+        
+          <li><a href="https://github.com/jwmasekre">showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/jwmasekre">showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/joshs_posh_1_useraccountcontrol/">josh's posh #1 - parsing the useraccountcontrol property</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2019-12-11
+    </span>
+    
+    
+    <span class="post-author">::
+      josh masek
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/posh/">posh</a>&nbsp;
+    
+    #<a href="/tags/powershell/">powershell</a>&nbsp;
+    
+    #<a href="/tags/get-aduser/">get-aduser</a>&nbsp;
+    
+    #<a href="/tags/properties/">properties</a>&nbsp;
+    
+    #<a href="/tags/bitwise/">bitwise</a>&nbsp;
+    
+    #<a href="/tags/anding/">anding</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="/img/Powershell_av_colors.ico" class="post-cover" />
+  
+
+  <div class="post-content">
+    <p>This first one is the inspiration for the site. I've been a bit obsessed with bitwise anding and parsing flags stored as bits ever since BPF in SANS SEC503. I ran into a situation recently where I wanted to check whether a smartcard was required for an account, but I didn't have access to active directory users and computers (dsa). A quick google search told me that the value for &ldquo;smartcard required&rdquo; is 262144, which briefly confused me, since that same search also told me basically all those checkboxes on the account screen are governed by the <code>useraccountcontrol</code> property. i found a table that made it much clearer: each flag is assigned a bit, with the highest one in the 27th bit, so really &ldquo;smartcard required&rdquo; is <code>000000001000000000000000000</code>.</p>
+<p>Of course, it usually isn't just one check box; you might have an account that can't change their password and their password doesn't expire (<code>000000000010000000001000000</code>), in which case the <code>useraccountcontrol</code> property isn't <code>64,65536</code>, it gives you <code>65600</code>, which is less useful and requires math. Good thing computers are good at math.</p>
+<p>There are 22 flags that can be set for the <code>useraccountcontrol</code> property, which means, yes, not all bits correspond to a flag (and by extension not all values between 1 and 134217727 are possible). I built a handy little hashtable for &ldquo;reference&rdquo;:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$uacflags = @{1=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">script</span><span style="color:#e6db74">&#34;</span>;2=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">accountdisable</span><span style="color:#e6db74">&#34;</span>;8=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">homedir_required</span><span style="color:#e6db74">&#34;</span>;16=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">lockout</span><span style="color:#e6db74">&#34;</span>;32=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">passwd_notreqd</span><span style="color:#e6db74">&#34;</span>;64=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">passwd_cant_change</span><span style="color:#e6db74">&#34;</span>;128=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">encrypted_text_pwd_allowed</span><span style="color:#e6db74">&#34;</span>;256=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">temp_duplicate_account</span><span style="color:#e6db74">&#34;</span>;512=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">normal_account</span><span style="color:#e6db74">&#34;</span>;2048=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">interdomain_trust_account</span><span style="color:#e6db74">&#34;</span>;4096=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">workstation_trust_account</span><span style="color:#e6db74">&#34;</span>;8192=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">server_trust_account</span><span style="color:#e6db74">&#34;</span>;65536=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">dont_expire_password</span><span style="color:#e6db74">&#34;</span>;131072=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">mns_logon_account</span><span style="color:#e6db74">&#34;</span>;262144=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">smartcard_required</span><span style="color:#e6db74">&#34;</span>;524288=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">trusted_for_delegation</span><span style="color:#e6db74">&#34;</span>;1048576=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">not_delegated</span><span style="color:#e6db74">&#34;</span>;2097152=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">use_des_key_only</span><span style="color:#e6db74">&#34;</span>;4194304=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">dont_req_preauth</span><span style="color:#e6db74">&#34;</span>;8388608=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">password_expired</span><span style="color:#e6db74">&#34;</span>;16777216=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">trusted_to_auth_for_delegation</span><span style="color:#e6db74">&#34;</span>;67108864=<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">partial_secrets_account</span><span style="color:#e6db74">&#34;</span>}
+</code></pre></div><p>As you can see, the third, eleventh, fifteenth, sixteenth, and twenty-sixth bits are unused. I don't <em>know</em> why, per se, but I'd guess it's for future use, especially since I'd bet that's a 32 bit value, which means bits 28-32 are unused as well.</p>
+<p>So to make this useful to us, we can run that hashtable so that <code>$uacflags</code> is available to reference, do a quick <code>$user = get-aduser -filter * -properties name,useraccountcontrol | where-object {$_.name -like &quot;masek*&quot;}</code> to grab my user account, and then we can throw something like this at it:</p>
+<p><code>$uacflags.Keys | where {$_ -band $user.useraccountcontrol} | foreach {$uacflags.Get_Item($_)}</code></p>
+<p>Let's analyze. First, <code>$uacflags.Keys</code> is just the numbers that we set equal to each flag. By piping it to the <code>where</code> statement, we're getting the list of valid values that result from bitwise anding (<code>-band</code>) that number against our <code>useraccountcontrol</code> property. We then send those numbers to the <code>foreach</code> statement, which just returns the values. In my case, <code>$user.useraccountcontrol</code> was equal to <code>66048</code>. When I ran that line of code above, it returned:</p>
+<p><code>normal_account</code>
+<code>dont_expire_password</code></p>
+<p>So, essentially, we have our list of valid flags and what they mean to humans (the hashtable), we then take each one and bitwise and it against the <code>useraccountcontrol</code> property, and then we get the values that actually mean something to humans spat back. That alone is kinda useful for quick lookups, but the real value is getting a list of users (maybe everyone in your admin group) and using this to compare their <code>useraccountcontrol</code> flags against the standard, and report on which users have misconfigured flags.</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      <span class="button previous">
+        <a href="/posts/kringlecon2019/">
+          <span class="button__icon">←</span>
+          <span class="button__text">come ctf with me #1 - kringlecon 2019</span>
+        </a>
+      </span>
+      
+      
+    </div>
+  </div>
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
