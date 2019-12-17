@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gui on /home/</title>
+    <link>/tags/gui/</link>
+    <description>Recent content in gui on /home/</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 16 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/gui/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>josh&#39;s posh #2 - an admin console for everyone</title>
+      <link>/posts/joshs_posh_2_adminconsole/</link>
+      <pubDate>Mon, 16 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/joshs_posh_2_adminconsole/</guid>
+      <description>Today&#39;s post is covering one of the first things I made at my previous employer, which I also have a sanitized version on my github here. We used smartcards for login, and we had separate cards and accounts for administration. We also couldn&#39;t select a separate account through UAC for installers/administrative applications, so the solution was to open command prompt and run runas /smartcard cmd.exe, select the admin card, and have a command prompt open as our admin account.</description>
+    </item>
+    
+  </channel>
+</rss>
