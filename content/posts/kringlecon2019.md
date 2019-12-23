@@ -1,5 +1,5 @@
 +++
-title = "come ctf with me #1 - kringlecon 2019"
+title = "come ctf with me #1 - kringlecon 2019 - pt 1"
 date = "2019-12-12"
 author = "josh masek"
 cover = "img/cranpi.png"
@@ -148,5 +148,4 @@ Alabaster suggests checking `sudo -l`, which is the list of what the current use
 
 There's a script at `/entrypoint.sh`, which looks like uses `chmod` and `chattr` against `/bin/nsh`. `/bin/nsh` is the Nyanshell, so we're making progress. If we `chattr -i /bin/nsh` (and then `sudo !!` because I forgot to sudo) we can now make changes to the file! I beat my head against this way longer than I should, but eventually I realized (with some helpful nudging) that we can just copy `/bin/bash` to `/bin/nsh` and switch users, and we win!
 
-Bypassing the Frido Sleigh CAPTEHA - Objective 8
-------
+To be continued...
