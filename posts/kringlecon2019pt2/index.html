@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>come ctf with me #1 - kringlecon 2019 - pt 2 :: /home/</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Mongo Pilfer - CranberryPi After the last CranPi, I took a week break from the ctf to focus on work, but with the arrival of the weekend and completion of some overdue errands, I was ready to go. To get into the swing of things, I decided to start cleaning up the other CranberryPis I dutifully noted before, starting with Holly Evergreen&#39;s in the NetWars Continuous room (where I made a cameo!"/>
+<meta name="keywords" content=", "/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/posts/kringlecon2019pt2/" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="come ctf with me #1 - kringlecon 2019 - pt 2 :: /home/ — " />
+<meta name="twitter:description" content="Mongo Pilfer - CranberryPi After the last CranPi, I took a week break from the ctf to focus on work, but with the arrival of the weekend and completion of some overdue errands, I was ready to go. To get into the swing of things, I decided to start cleaning up the other CranberryPis I dutifully noted before, starting with Holly Evergreen&#39;s in the NetWars Continuous room (where I made a cameo!" />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="josh masek" />
+<meta name="twitter:image" content="/img/cranpi.png">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="come ctf with me #1 - kringlecon 2019 - pt 2 :: /home/ — ">
+<meta property="og:description" content="Mongo Pilfer - CranberryPi After the last CranPi, I took a week break from the ctf to focus on work, but with the arrival of the weekend and completion of some overdue errands, I was ready to go. To get into the swing of things, I decided to start cleaning up the other CranberryPis I dutifully noted before, starting with Holly Evergreen&#39;s in the NetWars Continuous room (where I made a cameo!" />
+<meta property="og:url" content="/posts/kringlecon2019pt2/" />
+<meta property="og:site_name" content="come ctf with me #1 - kringlecon 2019 - pt 2" />
+<meta property="og:image" content="/img/cranpi.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2019-12-21 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    joshuamasek.com
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about</a></li>
+        
+      
+        
+          <li><a href="https://github.com/jwmasekre">showcase</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="https://github.com/jwmasekre">showcase</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/kringlecon2019pt2/">come ctf with me #1 - kringlecon 2019 - pt 2</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2019-12-21
+    </span>
+    
+    
+    <span class="post-author">::
+      josh masek
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/ctf/">ctf</a>&nbsp;
+    
+    #<a href="/tags/kringlecon/">kringlecon</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="/img/cranpi.png" class="post-cover" />
+  
+
+  <div class="post-content">
+    <h2 id="mongo-pilfer---cranberrypi">Mongo Pilfer - CranberryPi</h2>
+<p>After the last CranPi, I took a week break from the ctf to focus on work, but with the arrival of the weekend and completion of some overdue errands, I was ready to go. To get into the swing of things, I decided to start cleaning up the other CranberryPis I dutifully noted before, starting with Holly Evergreen's in the NetWars Continuous room (where I made a cameo!).</p>
+<p>This one is a MongoDB that has some sort of flag for us to find. Typing <code>mongo</code> fails to connect, but gives us a hint that it might not be listening on the default port. If we run <code>netstat -l</code> we see that localhost is listening on 12121, and specifically that it's our mongo instance. We type <code>mongo --port 12121</code> and we're in!</p>
+<p>The first thing we'll want to do is enumerate the collections in this DB. If we send <code>db.getCollectionNames().length</code>, we can see that there's a single collection, and <code>db.getCollectionNames()</code> returns &ldquo;redherring&rdquo;. Not exactly encouraging, and though I'm too curious to not dig deeper, if we run `tojsononeline(db.redherring.find()[0]), we get &ldquo;This is not the database you're looking for.&quot;, as if to quell our curiousity.</p>
+<p>Lets start over then. MongoDB supports multiple databases, so maybe we can find a different one. <code>show dbs</code> gives us 4 databases, and <code>db</code> tells us we're using the test db. &ldquo;admin&rdquo; is the most interesting right off the bat, but that just has the system version info. &ldquo;local&rdquo; has a bunch of startup logs, which seem like a lot to dig through, so first we'll start looking more at &ldquo;elfu&rdquo; using <code>use elfu</code> to switch dbs.</p>
+<p><code>db.getCollectionNames()</code> yields us several fish-related collections, as well as some more interesting collections, such as &ldquo;metadata&rdquo;, &ldquo;solution&rdquo;, and &ldquo;system.js&rdquo;. Let's look at the obvious one first. <code>tojsononeline(db.solution.find()[0])</code> gives us a command to run, and so we run <code>db.loadServerScripts();displaySolution();</code>, which shows us an animated ASCII tree, and we win!</p>
+<h2 id="smart-braces---cranberrypi">Smart Braces - CranberryPi</h2>
+<p>That was a fun little exercise, but not crazy challenging, so lets move onto a new one. The student union has another, so we'll knock it out. Looks like our boy Kent here got social engineered, and we need to clean up his firewall to prevent the unauthorized access that led to the attack. I afk'd for a bit to chat with someone, and then Kent started complaining about taking too long, so I backed out. Good to know there's a time limit</p>
+<p>I backed out, grabbed another beer, and jumped back in. The <code>IOTteethBraces.md</code> file gives us very straightforward instructions for configuring iptables:</p>
+<blockquote>
+<ol>
+<li>Set the default policies to DROP for the INPUT, FORWARD, and OUTPUT chains.</li>
+<li>Create a rule to ACCEPT all connections that are ESTABLISHED,RELATED on the INPUT and the OUTPUT chains.</li>
+<li>Create a rule to ACCEPT only remote source IP address 172.19.0.225 to access the local SSH server (on port 22).</li>
+<li>Create a rule to ACCEPT any source IP to the local TCP services on ports 21 and 80.</li>
+<li>Create a rule to ACCEPT all OUTPUT traffic with a destination TCP port of 80.</li>
+<li>Create a rule applied to the INPUT chain to ACCEPT all traffic from the lo interface.</li>
+</ol>
+</blockquote>
+<p>Since we have a time limit, lets build our rules outside of the prompt.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">1.
+sudo iptables -P INPUT DROP
+sudo iptables -P OUTPUT DROP
+sudo iptables -P FORWARD DROP
+2.
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+3.
+sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">22</span> -s 172.19.0.225 -j ACCEPT
+4.
+sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">21</span> -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport <span style="color:#ae81ff">80</span> -j ACCEPT
+5.
+sudo iptables -A OUTPUT -p tcp --dport <span style="color:#ae81ff">80</span> -j ACCEPT
+6.
+iptables -A INPUT -i lo -j ACCEPT
+</code></pre></div><p>This looks like it should do it. Let's give it a shot&hellip; and it works!</p>
+<h2 id="a---cranberrypi">a - CranberryPi</h2>
+<p>Last CranberryPi I can find is in the Dorms, and this one is using graylog to fill out an incident reponse report. Username and password are <code>elfustudent</code>, so lets just jump in. Looks like there's 8692 messages to sort through, but lucky for me my first ctf-like experience was working with graylog, so this shouldn't be too bad.</p>
+<p>The report starts with asking what the first file Minty downloaded was. <code>UserAccount:minty</code> will show us all the events tied to Minty (THIS IS CASE SENSITIVE&ndash; I HAVE SOME <del>OPINIONS</del> ABOUT THIS). It's also important to note that everytime you run a search, it sorts by newest first, so you have to click on the timestamp to go old-to-new.</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="/posts/joshs_posh_2_adminconsole/">
+          <span class="button__text">josh&#39;s posh #2 - an admin console for everyone</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
