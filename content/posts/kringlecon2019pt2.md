@@ -54,14 +54,37 @@ sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 5.
 sudo iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
 6.
-iptables -A INPUT -i lo -j ACCEPT
+sudo iptables -A INPUT -i lo -j ACCEPT
 ```
 
 This looks like it should do it. Let's give it a shot... and it works!
 
-a - CranberryPi
+Graylog - CranberryPi
 ------
 
 Last CranberryPi I can find is in the Dorms, and this one is using graylog to fill out an incident reponse report. Username and password are `elfustudent`, so lets just jump in. Looks like there's 8692 messages to sort through, but lucky for me my first ctf-like experience was working with graylog, so this shouldn't be too bad.
 
-The report starts with asking what the first file Minty downloaded was. `UserAccount:minty` will show us all the events tied to Minty (THIS IS CASE SENSITIVE-- I HAVE SOME ~~OPINIONS~~ ABOUT THIS). It's also important to note that everytime you run a search, it sorts by newest first, so you have to click on the timestamp to go old-to-new.
+The report starts with asking what the first file Minty downloaded was. `UserAccount:minty` will show us all the events tied to Minty (THIS IS CASE SENSITIVE-- I HAVE SOME ~~OPINIONS~~ ABOUT THIS). It's also important to note that everytime you run a search, it sorts by newest first, so you have to click on the timestamp to go old-to-new. I added a `AND NOT ProcessImage:C*firefox` to clear out all the firefox logs, and found `C:\Users\minty\Downloads\cookie_recipe.exe`. This is the correct answer, though the sheet recommends using sysmon's file creation events (2) that also have a process name of firefox. This makes more sense to me, but it's just not the way my brain thought to do this one.
+
+Now we're looking for the IP and Port that the attacker connected to. Using the same filter we currently have, if we turn on the DestinationIp and DestinationPort we can see the next log after our cookie_recipe.exe is connecting to `192.168.247.175:4444`, which is our answer. We can see some further evidence by seing the ProcessImage is the path of our malicious executable.
+
+Now we're looking at commands the attacker runs in their shell. The CommandLine field will tell us these, and the next log is `C:\Windows\system32\cmd.exe /c "whoami"`, which means `whoami` is our next answer.
+
+Next, we have a service being leveraged to escalate, and if we look at all the CommandLine fields for the next several logs, we can see the commands to list services being executed. If we open that log, there's an option to find the logs that surround this one by 5 minutes each way; this will clear our filter but give us some of the events going on that are related but were filtered out-- like having a UserAccount of minty. Unfortunately, in this case our attacker isn't that fast. I switched to a simple filter of just `source:elfu-res-wks1`, jumped to timestamp 2019-11-19 05:24~ where we first seem cookie_recipe.exe, and just skim through the logs until we see a CommandLine that launches a service with a parent image of cookie_recipe.exe (which we could have filtered for, but I wasn't positive it'd have that parent process, so I opted for more noise but less likely to filter out my target log). Specifically, the user launches `webexservice`, which I belive Ed Skoudis talked about at WWHF 2018 during his keynote.
+
+Now, we need to find the binary used to dump credentials. There are a bunch of references to a cookie_recipe2.exe, but we can see a log (with a parent of our cookie_recipe2.exe) of an `invoke-webrequest` grabbing mimikatz and saving it as `c:\cookie.exe`. Again, we could be implementing filters, and if I was more confident in this, I'd be just doing that, but my success in graylog is usually being able to visually filter out logs, rather than create the filters myself.
+
+Our next task is to identify the account used to pivot to a different workstation. This one is pretty easy, we just have to look for successful logon attempts that aren't with minty's account, and we find one by account `alabaster`.
+
+Next is to identify the time the attacker RDP'd into a different workstation. I thought this would be easy to accomplish; `SourcePort:3389 OR DestinationPort:3389` seems like the obvious solution, but this isn't it. We actually need to look at the LogonType, which is 10 for RDP. There are 4 entries when we use `LogonType:10`, and only one is a successful logon, at `06:04:28`.
+
+Now we need to enumerate another pivot, this time from the RDP'd machine to another one, and we need the LogonType. The question gives us a hint; if we check that `_exists_:LogonType AND _exists_:SourceHostName AND _exists_:DestinationHostname`, then we know that the logs that are returned have all the info we need. Further, we can change the time to absolute, and start with the RDP session's time to further reduce it down to 13 logs. We also already know that the attacker RDP'd into ELFU-RES-WKS2, so we can further reduce it that way. We end up with `elfu-res-wks2,elfu-res-wks3,3`, where the LogonType 3 indicates a network logon.
+
+Almost done, we just need to grab the file that was exfil'd. I actually spotted the file while I was exploring earlier, but we can do a quick `CommandLine:C*secret*` to find any commands executed that have the word "secret" in them, and we have one being moved from `:\Users\alabaster\Desktop\super_secret_elfu_research.pdf`
+
+Lastly, we need the IP it was sent to. This happens to be the next log, which has a destination of `104.22.3.84`, which is pastebin.com, and we're done with the report!
+
+Conclusion
+------
+
+With that, I concluded my journey into Kringlecon 2019. I began a new job, and have been having a lot of fun learning a brand new field (to me) in infosec, and may post about it here. I have some Powershell planned for future posts, and a NetWars coming up in April that I may document. I had a lot of fun with this one, but I think the ML portion just felt like too much of a time-sink for me to learn it and get it running. Can't wait to see what Ed and his team come up with for next year's 'con!
