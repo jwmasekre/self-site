@@ -50,4 +50,4 @@ paginate = 5
       [[languages.en.menu.main]]
         identifier = "rss"
         name = "rss"
-        url = "self.joshuamasek.com/index.xml"
+        url = "/index.xml"

@@ -6,6 +6,7 @@ author = "josh masek"
 
 dade wrote a [tweet](https://twitter.com/0xdade/status/1220953114733207552?s=19) linking to a [blog post](https://0xda.de/blog/2020/01/on-decentralizing-content/) on his site about bringing back webrings, and i'm super down. Below are some good people with good content:
 
+* [0xdade](https://0xda.de)
 * [Kelly Shortridge](https://swagitda.com/)
 * [Lesley Carhart](https://tisiphone.net/)
 * [MG](https://mg.lol/blog/)
