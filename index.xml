@@ -6,10 +6,20 @@
     <description>Recent content on /home/</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 25 Jan 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>webring</title>
+      <link>/webring/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/webring/</guid>
+      <description>dade wrote a tweet linking to a blog post on his site about bringing back webrings, and i&#39;m super down. Below are some good people with good content:
+ Kelly Shortridge Lesley Carhart MG Grugq SwiftOnSecurity DanielMiessler Trammell Hudson Jessie Frazelle NetworksAreMadeOfString onion n0pbear Topher Timzen Semgnome Vi Grey Whitequark  </description>
+    </item>
     
     <item>
       <title>come ctf with me #1 - kringlecon 2019 - pt 2</title>

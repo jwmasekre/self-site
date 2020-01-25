@@ -88,6 +88,10 @@
           <li><a href="https://github.com/jwmasekre">showcase</a></li>
         
       
+        
+          <li><a href="/webring">webring</a></li>
+        
+      
       
     
 
@@ -102,6 +106,10 @@
     
       
         <li><a href="https://github.com/jwmasekre">showcase</a></li>
+      
+    
+      
+        <li><a href="/webring">webring</a></li>
       
     
     
@@ -194,6 +202,8 @@ sudo iptables -A INPUT -i lo -j ACCEPT
 <p>Now we need to enumerate another pivot, this time from the RDP'd machine to another one, and we need the LogonType. The question gives us a hint; if we check that <code>_exists_:LogonType AND _exists_:SourceHostName AND _exists_:DestinationHostname</code>, then we know that the logs that are returned have all the info we need. Further, we can change the time to absolute, and start with the RDP session's time to further reduce it down to 13 logs. We also already know that the attacker RDP'd into ELFU-RES-WKS2, so we can further reduce it that way. We end up with <code>elfu-res-wks2,elfu-res-wks3,3</code>, where the LogonType 3 indicates a network logon.</p>
 <p>Almost done, we just need to grab the file that was exfil'd. I actually spotted the file while I was exploring earlier, but we can do a quick <code>CommandLine:C*secret*</code> to find any commands executed that have the word &ldquo;secret&rdquo; in them, and we have one being moved from <code>:\Users\alabaster\Desktop\super_secret_elfu_research.pdf</code></p>
 <p>Lastly, we need the IP it was sent to. This happens to be the next log, which has a destination of <code>104.22.3.84</code>, which is pastebin.com, and we're done with the report!</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>With that, I concluded my journey into Kringlecon 2019. I began a new job, and have been having a lot of fun learning a brand new field (to me) in infosec, and may post about it here. I have some Powershell planned for future posts, and a NetWars coming up in April that I may document. I had a lot of fun with this one, but I think the ML portion just felt like too much of a time-sink for me to learn it and get it running. Can't wait to see what Ed and his team come up with for next year's &lsquo;con!</p>
 
   </div>
   
@@ -228,7 +238,7 @@ sudo iptables -A INPUT -i lo -j ACCEPT
   <div class="footer__inner">
     
       <div class="copyright">
-        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
     
         <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
       </div>
