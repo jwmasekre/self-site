@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>status on /home/</title>
+    <link>/tags/status/</link>
+    <description>Recent content in status on /home/</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/status/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>josh&#39;s posh #3 - get-status: a jwmasekre cmdlet</title>
+      <link>/posts/joshs_posh_3_statusupdates/</link>
+      <pubDate>Mon, 27 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/joshs_posh_3_statusupdates/</guid>
+      <description>Got the idea for this one from a conversation I had with one of our senior network engineers at work. I had been using ping -t &amp;lt;ip&amp;gt; for seeing when someone rebooted devices and they came back online. That works fine for one device, but I ended up needing multiple, so I input a couple commands in powershell:
+$iplist = @()$iplist += &amp;lt;ip1&amp;gt;$iplist += &amp;lt;ip2&amp;gt;$iplist += &amp;lt;ip3&amp;gt;while ($true) {foreach ($ip in $iplist) {if (test-connection -computername $ip -count 1 -erroraction silentlycontinue){write-host &amp;#34;$ip is up&amp;#34;}}}which creates an array, adds the three IP addresses I wanted to test, and then alternates between test-connection on them, which is essentially a ping, but writes &amp;ldquo;&amp;lt;ip&amp;gt; is up&amp;rdquo; instead of the output of test-connection.</description>
+    </item>
+    
+  </channel>
+</rss>

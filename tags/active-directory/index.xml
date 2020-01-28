@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>active directory on /home/</title>
+    <link>/tags/active-directory/</link>
+    <description>Recent content in active directory on /home/</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 11 Dec 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/active-directory/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>josh&#39;s posh #1 - parsing the useraccountcontrol property</title>
+      <link>/posts/joshs_posh_1_useraccountcontrol/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/joshs_posh_1_useraccountcontrol/</guid>
+      <description>This first one is the inspiration for the site. I&#39;ve been a bit obsessed with bitwise anding and parsing flags stored as bits ever since BPF in SANS SEC503. I ran into a situation recently where I wanted to check whether a smartcard was required for an account, but I didn&#39;t have access to active directory users and computers (dsa). A quick google search told me that the value for &amp;ldquo;smartcard required&amp;rdquo; is 262144, which briefly confused me, since that same search also told me basically all those checkboxes on the account screen are governed by the useraccountcontrol property.</description>
+    </item>
+    
+  </channel>
+</rss>

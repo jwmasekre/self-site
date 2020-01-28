@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>josh&#39;s posh #3 - get-status: a jwmasekre cmdlet :: /home/</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Got the idea for this one from a conversation I had with one of our senior network engineers at work. I had been using ping -t &amp;lt;ip&amp;gt; for seeing when someone rebooted devices and they came back online. That works fine for one device, but I ended up needing multiple, so I input a couple commands in powershell:
+$iplist = @()$iplist &#43;= &amp;lt;ip1&amp;gt;$iplist &#43;= &amp;lt;ip2&amp;gt;$iplist &#43;= &amp;lt;ip3&amp;gt;while ($true) {foreach ($ip in $iplist) {if (test-connection -computername $ip -count 1 -erroraction silentlycontinue){write-host &amp;#34;$ip is up&amp;#34;}}}which creates an array, adds the three IP addresses I wanted to test, and then alternates between test-connection on them, which is essentially a ping, but writes &amp;ldquo;&amp;lt;ip&amp;gt; is up&amp;rdquo; instead of the output of test-connection."/>
+<meta name="keywords" content=", "/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/posts/joshs_posh_3_statusupdates/" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="josh&#39;s posh #3 - get-status: a jwmasekre cmdlet :: /home/ — " />
+<meta name="twitter:description" content="Got the idea for this one from a conversation I had with one of our senior network engineers at work. I had been using ping -t &amp;lt;ip&amp;gt; for seeing when someone rebooted devices and they came back online. That works fine for one device, but I ended up needing multiple, so I input a couple commands in powershell:
+$iplist = @()$iplist &#43;= &amp;lt;ip1&amp;gt;$iplist &#43;= &amp;lt;ip2&amp;gt;$iplist &#43;= &amp;lt;ip3&amp;gt;while ($true) {foreach ($ip in $iplist) {if (test-connection -computername $ip -count 1 -erroraction silentlycontinue){write-host &amp;#34;$ip is up&amp;#34;}}}which creates an array, adds the three IP addresses I wanted to test, and then alternates between test-connection on them, which is essentially a ping, but writes &amp;ldquo;&amp;lt;ip&amp;gt; is up&amp;rdquo; instead of the output of test-connection." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="josh masek" />
+<meta name="twitter:image" content="/img/Powershell_av_colors.ico">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="josh&#39;s posh #3 - get-status: a jwmasekre cmdlet :: /home/ — ">
+<meta property="og:description" content="Got the idea for this one from a conversation I had with one of our senior network engineers at work. I had been using ping -t &amp;lt;ip&amp;gt; for seeing when someone rebooted devices and they came back online. That works fine for one device, but I ended up needing multiple, so I input a couple commands in powershell:
+$iplist = @()$iplist &#43;= &amp;lt;ip1&amp;gt;$iplist &#43;= &amp;lt;ip2&amp;gt;$iplist &#43;= &amp;lt;ip3&amp;gt;while ($true) {foreach ($ip in $iplist) {if (test-connection -computername $ip -count 1 -erroraction silentlycontinue){write-host &amp;#34;$ip is up&amp;#34;}}}which creates an array, adds the three IP addresses I wanted to test, and then alternates between test-connection on them, which is essentially a ping, but writes &amp;ldquo;&amp;lt;ip&amp;gt; is up&amp;rdquo; instead of the output of test-connection." />
+<meta property="og:url" content="/posts/joshs_posh_3_statusupdates/" />
+<meta property="og:site_name" content="josh&#39;s posh #3 - get-status: a jwmasekre cmdlet" />
+<meta property="og:image" content="/img/Powershell_av_colors.ico">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2020-01-27 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    joshuamasek.com
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about</a></li>
+        
+      
+        
+          <li><a href="/index.xml">rss</a></li>
+        
+      
+        
+          <li><a href="https://github.com/jwmasekre">showcase</a></li>
+        
+      
+        
+          <li><a href="/webring">webring</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="/index.xml">rss</a></li>
+      
+    
+      
+        <li><a href="https://github.com/jwmasekre">showcase</a></li>
+      
+    
+      
+        <li><a href="/webring">webring</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/joshs_posh_3_statusupdates/">josh's posh #3 - get-status: a jwmasekre cmdlet</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2020-01-27
+    </span>
+    
+    
+    <span class="post-author">::
+      josh masek
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/posh/">posh</a>&nbsp;
+    
+    #<a href="/tags/powershell/">powershell</a>&nbsp;
+    
+    #<a href="/tags/test-connection/">test-connection</a>&nbsp;
+    
+    #<a href="/tags/status/">status</a>&nbsp;
+    
+    #<a href="/tags/update/">update</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="/img/Powershell_av_colors.ico" class="post-cover" />
+  
+
+  <div class="post-content">
+    <p>Got the idea for this one from a conversation I had with one of our senior network engineers at work. I had been using <code>ping -t &lt;ip&gt;</code> for seeing when someone rebooted devices and they came back online. That works fine for one device, but I ended up needing multiple, so I input a couple commands in powershell:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$iplist = @()
+$iplist += &lt;ip1&gt;
+$iplist += &lt;ip2&gt;
+$iplist += &lt;ip3&gt;
+<span style="color:#66d9ef">while</span> ($true) {<span style="color:#66d9ef">foreach</span> ($ip <span style="color:#66d9ef">in</span> $iplist) {<span style="color:#66d9ef">if</span> (test-connection -computername $ip -count 1 -erroraction silentlycontinue){write-host <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$</span><span style="color:#e6db74">ip is up</span><span style="color:#e6db74">&#34;</span>}}}
+</code></pre></div><p>which creates an array, adds the three IP addresses I wanted to test, and then alternates between <code>test-connection</code> on them, which is essentially a ping, but writes &ldquo;&lt;ip&gt; is up&rdquo; instead of the output of test-connection. This was fantastic, did exactly what I wanted, and was A <em>MASSIVE</em> BLAST OF ICMP. And since I had stepped away from my computer after starting the loop, I have no idea how long it had been sending ICMP echo requests and receiving echo replies at the speed of computer. Completely cleared the buffer, at least.</p>
+<p>So I reevaluated what I <em>actually</em> wanted: I wasn't looking for a constant, continual ping, I just needed to know whether it was up or down. And my previous issue of walking away introduced another nugget of info I was missing: <em>when</em> it goes up or down. And now that I had a much clearer idea of what I'm after, I began to craft an actual script.</p>
+<p>First, we need to lay out the basic building blocks of our script. The end product will extend beyond pings, but for now we'll just use test-connection for simplicity's sake. This is an endless loop, so that's easy:</p>
+<blockquote>
+<p><code>while ($true){}</code></p>
+</blockquote>
+<p>And we're pinging, but we don't want a bunch of red stuff on our screen:</p>
+<blockquote>
+<p><code>{test-connection -computername &lt;ip&gt; -count 1 -erroraction silently continue}</code></p>
+</blockquote>
+<p>But, we also don't want the output to just be the output of test-connection; that isn't what we need to know.</p>
+<blockquote>
+<p><code>{if (&lt;test...&gt;){write-host &quot;host is online&quot; -foregroundcolor green}}</code></p>
+</blockquote>
+<p>and we need to output something if it fails:</p>
+<blockquote>
+<p><code>{if...}else{write-host &quot;host is offline&quot; -foregroundcolor magenta}}</code></p>
+</blockquote>
+<p>And we want timestamps:</p>
+<blockquote>
+<p><code>{if (&lt;test...&gt;){get-date;write-host &quot;host is online&quot; -foregroundcolor green} else {get-date;write-host &quot;host is offline&quot; -foregroundcolor magenta}}</code></p>
+</blockquote>
+<p>However, this is going to blast us with repeating onlines until it goes offline, and then offlines until it goes online. This is where we start getting some boolean flags in. <em>Note: There may be a way better way to do this, this is just what makes sense to me logically.</em></p>
+<p>We're gonna create two flags, <code>$online</code> and <code>$offline</code>. We're also going to set them to <code>$true</code> right off the bat. This might sound weird, but it's actually really critical for the way we use the flags. Then, when a <code>test-connection</code> is successful, we're gonna set the <code>$online</code> flag to <code>$true</code>. &ldquo;But Josh, it's already <code>$true!</code>&rdquo; It sure is, right now, but as the loop continues it may not be, and it's not worth the extra lines of code to check whether or not it's already true. We then insert a new if statement that checks to see if <code>$offline</code> is true, in which case <em>then and only then</em> will it tell us the &ldquo;&lt;ip&gt; is online&rdquo; message, after which it sets <code>$offline</code> to <code>$false</code> because, well, it's not offline. We also do the same but opposite to the <code>else</code> statement, and the code looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">$online = $true
+$offline = $true
+<span style="color:#66d9ef">while</span> ($true) {
+    <span style="color:#66d9ef">if</span> (test-connection -ComputerName &lt;ip&gt; -count 1 -ErrorAction SilentlyContinue) {
+        $online = $true
+        <span style="color:#66d9ef">if</span> ($offline <span style="color:#f92672">-eq</span> $true) {
+            Get-Date
+            Write-Host <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Host is Online</span><span style="color:#e6db74">&#34;</span> -foregroundcolor Green
+            $offline = $false
+        }
+    }
+    <span style="color:#66d9ef">else</span> {
+        $offline = $true
+        <span style="color:#66d9ef">if</span> ($online <span style="color:#f92672">-eq</span> $true) {
+            Get-Date
+            Write-Host <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Host is Offline</span><span style="color:#e6db74">&#34;</span> -foregroundcolor Magenta
+            $online = $false
+        }
+    }
+}
+</code></pre></div><p>Also, we should add a <code>start-sleep -s 5</code> or however long you wanna wait between ping attempts just before the last curly bracket, so it isn't bombarding the network with ICMP traffic.</p>
+<p>So to clear up the logic here, since it might not make sense to someone out there, let's step through it. At the beginning, we have online as true and offline as true. Then we actually test the connection. Let's say that the connection passes. Online gets set to true, and since offline is also true, we output <code>get-date</code> and &ldquo;&lt;ip&gt; is online&rdquo;. Then, we set offline to false, since it's not offline, and we sleep for 5 seconds. On the second pass, we test the connection and it's still up! We set online to true again, since we've confirmed it's online, but since offline is set to false, we don't bother with the date/time or the line about it being online; we already know it's online, we don't need to be told again.</p>
+<p>After several more loops, we get to the test connection, and it fails. This takes us to the <code>else</code> statement, and here we set offline to true, since now it's offline. And since it was just online, online is still set to true, so we output <code>get-date</code> and &ldquo;&lt;ip&gt; is offline&rdquo;, and finish it up with setting online to false, since it's no longer online. And thus it continues until you hit <code>ctrl + c</code> or otherwise interrupt the loop.</p>
+<p>This works great, though there's some formatting weirdness with <code>get-date</code> by itself, but what I really want is to be able to throw stuff at it and have it just process what I add. The target is something like this:</p>
+<p><code>get-status -scriptblock &quot;invoke-webrequest -uri localhost:5601&quot; -sleeplength 30 -successmsg &quot;kibana is up&quot; -failuremsg &quot;kibana is down&quot;</code></p>
+<p>&hellip;and for the evolution into <code>get-status</code> as a cmdlet, we'll have to wait until the next post, as this one is already pretty long. I'm excited to flesh this out though, and work out what will most likely end up being some parsing issues.</p>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="/posts/kringlecon2019pt2/">
+          <span class="button__text">come ctf with me #1 - kringlecon 2019 - pt 2</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
