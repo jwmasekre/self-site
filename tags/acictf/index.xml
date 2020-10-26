@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>acictf on /home/</title>
+    <link>/tags/acictf/</link>
+    <description>Recent content in acictf on /home/</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/acictf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>come ctf with me #2 - acictf - pt 1</title>
+      <link>/posts/acictf2020/</link>
+      <pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/acictf2020/</guid>
+      <description>Army Cyber Institute Capture the Flag On the ball this year about starting right away, so let&#39;s get right in
+Skip the Tutorial - 0 no thanks
+First Rule - 1 So this one is just getting us familiar with what a flag looks like; in this case, ACI{this_is_a_flag}
+Distant Socializing - 2 This one&#39;s easy, just join an appropriate group (NCO, in my case), and you get a flag: ACI{welcome_to_the_club}</description>
+    </item>
+    
+  </channel>
+</rss>

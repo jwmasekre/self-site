@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>come ctf with me #3 - metactf 2020 part 1 - password here please :: /home/</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
+Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account."/>
+<meta name="keywords" content=", "/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="/posts/metactf2020_passwordhereplease/" />
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="come ctf with me #3 - metactf 2020 part 1 - password here please :: /home/ — " />
+<meta name="twitter:description" content="MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
+Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account." />
+<meta name="twitter:site" content="/" />
+<meta name="twitter:creator" content="josh masek" />
+<meta name="twitter:image" content="/img/cg_2020_bonus.png">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="come ctf with me #3 - metactf 2020 part 1 - password here please :: /home/ — ">
+<meta property="og:description" content="MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
+Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account." />
+<meta property="og:url" content="/posts/metactf2020_passwordhereplease/" />
+<meta property="og:site_name" content="come ctf with me #3 - metactf 2020 part 1 - password here please" />
+<meta property="og:image" content="/img/cg_2020_bonus.png">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2020-10-26 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    joshuamasek.com
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about</a></li>
+        
+      
+        
+          <li><a href="/index.xml">rss</a></li>
+        
+      
+        
+          <li><a href="https://github.com/jwmasekre">showcase</a></li>
+        
+      
+        
+          <li><a href="/webring">webring</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about</a></li>
+      
+    
+      
+        <li><a href="/index.xml">rss</a></li>
+      
+    
+      
+        <li><a href="https://github.com/jwmasekre">showcase</a></li>
+      
+    
+      
+        <li><a href="/webring">webring</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/metactf2020_passwordhereplease/">come ctf with me #3 - metactf 2020 part 1 - password here please</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2020-10-26
+    </span>
+    
+    
+    <span class="post-author">::
+      josh masek
+    </span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/ctf/">ctf</a>&nbsp;
+    
+    #<a href="/tags/metactf/">metactf</a>&nbsp;
+    
+    #<a href="/tags/reverse-engineering/">reverse engineering</a>&nbsp;
+    
+  </span>
+  
+
+  
+  <img src="/img/cg_2020_bonus.png" class="post-cover" />
+  
+
+  <div class="post-content">
+    <h1 id="metactf-2020---password-here-please">MetaCTF 2020 - Password Here Please</h1>
+<p>For this CTF, I'll upload the challenges I found interesting as individual write-ups. I don't know how many I'll do (time is a bastard) but I'll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.</p>
+<h2 id="description">Description</h2>
+<pre><code>I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don't lock myself out of my account. Unfortunately, I seem to have lost my password list as well...
+
+Could you take a look and see if you can find my password for me?
+
+Part 3 requires some math skills. To solve it, think about what is being done by the exponentiation step. Try rewriting the large number in base 257.
+</code></pre><h2 id="methodology">methodology</h2>
+<p>So this problem is realistically 4 parts: is the length right (<code>if(len(password[::-2]) != 12 or len(password[17:]) != 7):</code>), are first 8 chars right (<code>chunk1</code>), are second 8 chars right (<code>chunk2</code>), are last 8 chars right (<code>chunk3</code>). We'll tackle each part one by one, and should have a usable answer at the end.</p>
+<h2 id="part-1---length">part 1 - length</h2>
+<p>The code is doing some math on the length of the provided password and checking if it matches those. Realistically, you could just brute force this by inputing <code>A</code>, then <code>AA</code>, etc, but this is how the math works: the colon (<code>:</code>) is being used as a slice operator, which is in the form of <code>[start]:[stop]:[step]</code>, with the defaults being index 0, end, and 1 respectively. Also, using a negative just reverses everything, so for <code>[::-2]</code>, what it's doing is starting at the end, working to the beginning, and skipping every other, to end with a list that would turn <code>123456789012345678901234</code> into <code>[4, 2, 0, 8, 6, 4, 2, 0, 8, 6, 4, 2]</code>. then, we're taking <code>len()</code> (length) of that, which in this case is 12. At this point, just by reading that first bit, we should know that the length is 24, but we can check the other part (which is an or, and could be different). This one is <code>[17:]</code>, which is starting at 17 and working its way to the end, stepping by one. the <code>len()</code> of the result needs to be 7 to pass, so <code>17 + 7 = 24</code> and we have our confirmation that the password is <strong>24 characters long</strong>.</p>
+<h2 id="part-2---chunk1">part 2 - chunk1</h2>
+<p>Now we start stepping up the math. First, it creates a variable <code>pwlen</code> which is just the length of the password. Then, it creates a new string called <code>chunk1</code> by taking the ascii decimal value of each character, subtracting it from hex 0x98 (decimal 152), transforming that back into an ascii character, and then sticking the word &ldquo;key&rdquo; in between each one. The <code>for c in range(0, int(pwlen / 3))</code> part is just iterating from the begining to the 8th character. Then, it checks every 4th character, starting at the first (<code>chunk[::4]</code>) to see if it matches string <code>&amp;e&quot;3&amp;Ew*</code>. Essentially, the &ldquo;key&rdquo; bit is just extra bs that we can ignore, but the other part is easy to reverse. in python, we can do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ciphertext <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&amp;e</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">3&amp;Ew*</span><span style="color:#e6db74">&#39;</span>
+chunk1 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(ciphertext)):
+    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">152</span> <span style="color:#f92672">-</span> ord(ciphertext[i])
+    chunk1 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chr(x)
+<span style="color:#66d9ef">print</span>(chunk1)
+</code></pre></div><p>Because <code>152 - x = new_character_decimal_value</code>, so <code>152 - new_character_decimal_value = x</code></p>
+<p>&hellip;and that results in <strong>r3verS!n</strong></p>
+<h2 id="part-3---chunk2">part 3 - chunk2</h2>
+<p>Again, the math steps up. This one grabs the middle 8 characters (<code>for c in password[int(pwlen / 3) : int(2 * pwlen / 3)]</code>, which is from 8 to 16 (24/3 to 2*24/3)) and applies a conditional: if the hex value of the character is greater than 0x60, it subtracts 0x1f, if the hex value is greater than 0x40, it adds 0x1f, and otherwise it doesn't change anything (<code>chunk2 = [ord(c) - 0x1F if ord(c) &gt; 0x60 else (ord(c) + 0x1F if ord(c) &gt; 0x40 else ord(c))</code>). This will be useful to us later; this section has to be done totally in reverse.</p>
+<p>The next section of it establishes an array (<code>ring = [54, -45, 9, 25, -42, -25, 31, -79]</code>), and checks to see if each number in <code>chunk2</code> plus the number in the corresponding slot in <code>ring</code> is equal to the next number in <code>chunk2</code>, <em>unless we're at the end of <code>chunk2</code></em>, in which case it compares it to 0. This is the key to this part; we can solve <code>ring[8] + chunk2[8] = 0</code> to <code>chunk2[8] = 79</code>, and from there solve the rest. in python, that looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ring <span style="color:#f92672">=</span> [<span style="color:#ae81ff">54</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">25</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">42</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">31</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">79</span>]
+chunk2array <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">79</span>]
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(chunk2array)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+    chunk2array[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> chunk2array[i] <span style="color:#f92672">-</span> ring[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+<span style="color:#66d9ef">print</span>(chunk2array)
+</code></pre></div><p>That gives us the array of the characters, but we still have to do the conditional arithmetic from above. If we apply the conditionals in reverse, we can determine the original character values. Here is what that looks like in python:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">chunk2 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(chunk2array)):
+    <span style="color:#66d9ef">if</span> chunk2array[i] <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x40</span>:
+        chunk2array[i] <span style="color:#f92672">=</span> chr(chunk2array[i])
+    <span style="color:#66d9ef">elif</span> chunk2array[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x1F</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x40</span>:
+        chunk2array[i] <span style="color:#f92672">=</span> chr(chunk2array[i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x1F</span>)
+    <span style="color:#66d9ef">else</span>:
+        chunk2array[i] <span style="color:#f92672">=</span> chr(chunk2array[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x1F</span>)
+    chunk2 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chunk2array[i]
+<span style="color:#66d9ef">print</span>(chunk2)
+</code></pre></div><p>Essentially, there's no condition where a value goes from &gt;0x40 to &lt;0x40, so we know that if it's already less than 0x40, it's the same. The next part is a little tricky; we also know that there's no condition where a value &lt;0x40 goes to &gt;0x40, so if removing 0x1f from the ring value brings it under 0x40, we know that it wouldn't have added 0x1f to get to that value, so we know that 0x1f was subtracted from it and it started &gt;0x60. Finally, anything that's left must have been in the middle, so we know 0x1f must have been added to it. Running this yields us <strong>g_pyTh0n</strong></p>
+<h2 id="part-4---chunk3">part 4 - chunk3</h2>
+<p>And finally, the last bit, the most complicated math of the script. It first grabs the last 8 characters of the password (<code>chunk3 = password[int(2 * pwlen / 3):]</code>), and then it stores a giant number as <code>code</code>. It then checks the value of each character to see if it's less than 0x28, and marks the password invalid if it is. Otherwise, it takes 257 to the power of the value of the character minus 0x28, multiplies that by the number one bit-shifted to the left by the number of the iteration currently on, and then subtracts that giant number from the giant number <code>code</code>. That's a lot, so i'll break it down some.</p>
+<p>Assuming <code>i</code> is 0 and <code>chunk3[i]</code> is &ldquo;A&rdquo;, <code>257 ** (ord(chunk3[i]) - 0x28)</code> condenses down to <code>257 ** (0x41 - 0x28)</code> (0x41 being the hex value of ascii &ldquo;A&rdquo;), which becomes <code>257 ** 25</code> (we did some conversions from hex to decimal), which is a 61 digit number, <em>way</em> too large to justify placing here. Then, it's multiplied by <code>1 &lt;&lt; i</code>, which is just 1 in this case. For the rest of the characters, the first bit is unchanged, but here's how a left bit shift works as used here:</p>
+<p>In binary, 1 is represented by a 1 preceeded by as many zeros as relevant to the system you're working. For the sake of this problem, we'll use 8 digits (bits) total: <code>00000001</code>. When we shift the bit to the left, it becomes this: <code>00000010</code>; all characters move to the left and we append a 0 at the end. Since preceding 0s don't mean anything, we can ignore any preceding zeros and drop them. <code>00000010</code> is equal to 2 in decimal; if we bitshift by 2, we get <code>00000100</code>, which is equal to 4. If we continue until we've bitshifted to 7, we get the following: <code>0=1, 1=2, 2=4, 3=8, 4=16, 5=32, 6=64, 7=128</code>. These are the values that we are multiplying our giant number by before subtracting it from our other giant number.</p>
+<p>So how do we reverse this? Well, rather elegantly, we can do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">code <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xaace63feba9e1c71ef460e6dbf1b1fbabfd7e2e35401440ac57e93bd9ba41c4fbd5d437b1dfab11fe7a1c6c2035982a71765fc9a7b32ccef695dffb71babe15733f5bb29f76aae5f80fff</span>
+g <span style="color:#f92672">=</span> int(code)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numberToBase</span>(n, b):
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">return</span> [<span style="color:#ae81ff">0</span>]
+    digits <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">while</span> n:
+        digits<span style="color:#f92672">.</span>append(int(n <span style="color:#f92672">%</span> b))
+        n <span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#f92672">=</span> b
+    <span style="color:#66d9ef">return</span> digits[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+
+truenum <span style="color:#f92672">=</span> numberToBase(g, <span style="color:#ae81ff">257</span>)
+<span style="color:#66d9ef">print</span>(truenum)
+
+chunk3array <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
+chunk3 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(truenum)):
+    <span style="color:#66d9ef">if</span> truenum[i] <span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>:
+        j <span style="color:#f92672">=</span> truenum[i]
+        <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">7</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+            m <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> k
+            <span style="color:#66d9ef">if</span> j <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> m:
+                chunk3array[k] <span style="color:#f92672">=</span> chr(len(truenum) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x28</span>)
+                j <span style="color:#f92672">=</span> j <span style="color:#f92672">%</span> m
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range (<span style="color:#ae81ff">0</span>, len(chunk3array)):
+    chunk3 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> str(chunk3array[i])
+<span style="color:#66d9ef">print</span>(chunk3)
+</code></pre></div><p>Of course, that's a lot of code, and it's not totally apparent what we're doing here, so i'll break it down. First, the whole bit where we raise 257 to an exponent is very much like the operations you use to change bases. For example, let's say we have the hex number 3f5. To convert it to decimal, we would, for each digit starting from the back, take that number's decimal value, and multiply it by 16^(the place of the digit, starting with 0):</p>
+<p>5 = 16^0 * 5 = 5
+f = 16^1 * 15 = 240
+3 = 16^2 * 3 = 768</p>
+<p>&hellip;which comes to 1013.</p>
+<p>These equasions look an awful lot like the one in the script: the number place (<code>^0, ^1, ^2</code>) is supplanted with <code>ord(chunk3[i]) - 0x28</code>, our base is now 257, and the value of the number on that place (<code>5, 15, 3</code>) is now instead <code>1, 2, 4, 8, 16, 32, 64, 128</code>. Of course, we're trying to solve for something in the middle of that; we want the number place that the values <code>1, 2, 4, 8, 16, 32, 64, 128</code> are at. So in our problem, what we're given is equivalent to <code>1013 = 16^x*5 - 16^y*240 - 16^z*768</code>, knowing that we're using base 16. that's where our <code>numberToBase</code> function comes in. What it does is rewrite the number (like 1013) to something easier to parse: <code>768, 240, 5</code>, which tells us <code>x</code>, <code>y</code>, and <code>z</code> since we know that 5 is in the 0 digit spot, 240 is in the 1 digit spot, and 768 is in the 2 digit spot, so our problem is <code>1013 = 16^0*5 - 16^1*240 - 16^2*768</code></p>
+<p>Therefore, we need to convert the huge number stored as <code>code</code> to base 257 and see where our numbers are at. First, <code>numberToBase</code> checks to make sure the value being converted isn't 0, as 0 is 0 in all base configurations. Then, it performs a modulo of our number over our base (<code>code % 257</code>) to get the remainder after you divide it by 257, adding it to an array called <code>digits</code>. Then, it re-writes <code>code</code> as the quotient without the remainder, and repeats until it's 0. It then outputs all of the digits in reverse order, and that gives us our base257 version of <code>code</code>:</p>
+<p><code>[8, 0, 0, 0, 128, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</code></p>
+<p>It looks perfect, except for a slight hiccup: one of the values is 17, which isn't in our list. Fortunately, we have everything but the 1 and 16, so what we know is that the 1 space and the 16 space are the same digit. While we can look at this and figure out, based on which space they're all in, what value we need to add 0x28 to, we can make the computer do it, which is what the second part of the script does. It basically just goes through each digit, checks to see if it's not 0, and if not, goes through each of our options (<code>1, 2, 4..128</code>) in reverse order, checking to see if it's larger than or equal to that number. If so, it subtracts its location in the array and 1 from the length of the array and adds 0x28, and then takes the modulus of it in case there's another smaller value to be found. For example, at position 19 we have 17. It's not larger than or equal to 128, 64, or 32 but is larger than or equal to 16, so we take 75 (the length of the array) minus 19, minus 1 (since we start at 0 but the length starts at 1), and then plus 0x28, which gives us 95, the decimal value for <code>_</code> and store that in the 4th position. We then take 17 % 16, which gives us 1, and then since it's not larger than or equal to 8, 4, or 2 but equal to 1, we do the same thing, storing another <code>_</code> in the first position. Once it's finished, we get <strong>_fOr_FUn</strong></p>
+<h2 id="finally-the-answer">finally, the answer</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(chunk1 <span style="color:#f92672">+</span> chunk2 <span style="color:#f92672">+</span> chunk <span style="color:#ae81ff">3</span>)
+</code></pre></div><p>Just combines the whole thing into <strong>r3verS!ng_pyTh0n_fOr_FUn</strong>, which is the password.</p>
+<p>I had a ton of fun with this one, it was challenging but not in a way that was imposible.</p>
+<h2 id="tldr">tl;dr</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ciphertext <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&amp;e</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">3&amp;Ew*</span><span style="color:#e6db74">&#39;</span>
+chunk1 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(ciphertext)):
+    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">152</span> <span style="color:#f92672">-</span> ord(ciphertext[i])
+    chunk1 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chr(x)
+<span style="color:#66d9ef">print</span>(chunk1)
+
+ring <span style="color:#f92672">=</span> [<span style="color:#ae81ff">54</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">25</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">42</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">31</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">79</span>]
+chunk2array <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">79</span>]
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(chunk2array)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+    chunk2array[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> chunk2array[i] <span style="color:#f92672">-</span> ring[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+<span style="color:#66d9ef">print</span>(chunk2array)
+chunk2 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(chunk2array)):
+    <span style="color:#66d9ef">if</span> chunk2array[i] <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x40</span>:
+        chunk2array[i] <span style="color:#f92672">=</span> chr(chunk2array[i])
+    <span style="color:#66d9ef">elif</span> chunk2array[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x1F</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x40</span>:
+        chunk2array[i] <span style="color:#f92672">=</span> chr(chunk2array[i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x1F</span>)
+    <span style="color:#66d9ef">else</span>:
+        chunk2array[i] <span style="color:#f92672">=</span> chr(chunk2array[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x1F</span>)
+    chunk2 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> chunk2array[i]
+<span style="color:#66d9ef">print</span>(chunk2)
+
+code <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xaace63feba9e1c71ef460e6dbf1b1fbabfd7e2e35401440ac57e93bd9ba41c4fbd5d437b1dfab11fe7a1c6c2035982a71765fc9a7b32ccef695dffb71babe15733f5bb29f76aae5f80fff</span>
+g <span style="color:#f92672">=</span> int(code)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">numberToBase</span>(n, b):
+    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">return</span> [<span style="color:#ae81ff">0</span>]
+    digits <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">while</span> n:
+        digits<span style="color:#f92672">.</span>append(int(n <span style="color:#f92672">%</span> b))
+        n <span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#f92672">=</span> b
+    <span style="color:#66d9ef">return</span> digits[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+
+truenum <span style="color:#f92672">=</span> numberToBase(g, <span style="color:#ae81ff">257</span>)
+<span style="color:#66d9ef">print</span>(truenum)
+
+chunk3array <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
+chunk3 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(truenum)):
+    <span style="color:#66d9ef">if</span> truenum[i] <span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>:
+        j <span style="color:#f92672">=</span> truenum[i]
+        <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">7</span> , <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+            m <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> k
+            <span style="color:#66d9ef">if</span> j <span style="color:#f92672">&gt;</span><span style="color:#f92672">=</span> m:
+                chunk3array[k] <span style="color:#f92672">=</span> chr(len(truenum) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x28</span>)
+                j <span style="color:#f92672">=</span> j <span style="color:#f92672">%</span> m
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range (<span style="color:#ae81ff">0</span>, len(chunk3array)):
+    chunk3 <span style="color:#f92672">+</span><span style="color:#f92672">=</span> str(chunk3array[i])
+<span style="color:#66d9ef">print</span>(chunk3)
+
+<span style="color:#66d9ef">print</span>(chunk1 <span style="color:#f92672">+</span> chunk2 <span style="color:#f92672">+</span> chunk3)
+</code></pre></div><h2 id="python-script">python script</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ValidatePassword</span>(password):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Password Validator v1.0</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Attempting to validate password...</span><span style="color:#e6db74">&#34;</span>)
+
+    <span style="color:#66d9ef">if</span>(len(password[::<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>]) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">12</span> <span style="color:#f92672">or</span> len(password[<span style="color:#ae81ff">17</span>:]) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">7</span>):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Woah, you</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">re not even close!!</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">return</span> False
+
+    pwlen <span style="color:#f92672">=</span> len(password)
+    chunk1 <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">key</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>join([chr(<span style="color:#ae81ff">0x98</span> <span style="color:#f92672">-</span> ord(password[c]))
+                             <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, int(pwlen <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>))])
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join([c <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> chunk1[::<span style="color:#ae81ff">4</span>]]) <span style="color:#f92672">!=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&amp;e</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">3&amp;Ew*</span><span style="color:#e6db74">&#39;</span>:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">You call that the password? HA!</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">return</span> False
+
+    chunk2 <span style="color:#f92672">=</span> [ord(c) <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x1F</span> <span style="color:#66d9ef">if</span> ord(c) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0x60</span>
+                  <span style="color:#66d9ef">else</span> (ord(c) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x1F</span> <span style="color:#66d9ef">if</span> ord(c) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0x40</span> <span style="color:#66d9ef">else</span> ord(c))
+                  <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> password[int(pwlen <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>) : int(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> pwlen <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>)]]
+    ring <span style="color:#f92672">=</span> [<span style="color:#ae81ff">54</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">45</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">25</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">42</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">31</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">79</span>]
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(chunk2)):
+        <span style="color:#66d9ef">if</span>(<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> len(chunk2) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">else</span> chunk2[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]) <span style="color:#f92672">!=</span> chunk2[i] <span style="color:#f92672">+</span> ring[i]:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">You cracked the passwo-- just kidding, try again! </span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">+</span> str(i))
+            <span style="color:#66d9ef">return</span> False
+
+    chunk3 <span style="color:#f92672">=</span> password[int(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> pwlen <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>):]
+    code <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xaace63feba9e1c71ef460e6dbf1b1fbabfd7e2e35401440ac57e93bd9ba41c4fbd5d437b1dfab11fe7a1c6c2035982a71765fc9a7b32ccef695dffb71babe15733f5bb29f76aae5f80fff</span>
+    valid <span style="color:#f92672">=</span> True
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(chunk3)):
+        <span style="color:#66d9ef">if</span>(ord(chunk3[i]) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x28</span>):
+            valid <span style="color:#f92672">=</span> False
+        code <span style="color:#f92672">-</span><span style="color:#f92672">=</span> (<span style="color:#ae81ff">257</span> <span style="color:#f92672">*</span><span style="color:#f92672">*</span> (ord(chunk3[i]) <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x28</span>)) <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> i)
+
+    <span style="color:#66d9ef">if</span> code <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> valid:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Password accepted!</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">return</span> True
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Quite wrong indeed!</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">return</span> False
+
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Please enter password</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> ValidatePassword(input()):
+    <span style="color:#66d9ef">pass</span>
+</code></pre></div>
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      
+      <span class="button next">
+        <a href="/posts/acictf2020/">
+          <span class="button__text">come ctf with me #2 - acictf - pt 1</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2020 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

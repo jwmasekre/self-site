@@ -6,10 +6,32 @@
     <description>Recent content in ctf on /home/</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>come ctf with me #3 - metactf 2020 part 1 - password here please</title>
+      <link>/posts/metactf2020_passwordhereplease/</link>
+      <pubDate>Mon, 26 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/metactf2020_passwordhereplease/</guid>
+      <description>MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
+Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account.</description>
+    </item>
+    
+    <item>
+      <title>come ctf with me #2 - acictf - pt 1</title>
+      <link>/posts/acictf2020/</link>
+      <pubDate>Fri, 24 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/acictf2020/</guid>
+      <description>Army Cyber Institute Capture the Flag On the ball this year about starting right away, so let&#39;s get right in
+Skip the Tutorial - 0 no thanks
+First Rule - 1 So this one is just getting us familiar with what a flag looks like; in this case, ACI{this_is_a_flag}
+Distant Socializing - 2 This one&#39;s easy, just join an appropriate group (NCO, in my case), and you get a flag: ACI{welcome_to_the_club}</description>
+    </item>
     
     <item>
       <title>come ctf with me #1 - kringlecon 2019 - pt 2</title>

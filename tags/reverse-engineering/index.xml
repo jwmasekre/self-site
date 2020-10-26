@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>reverse engineering on /home/</title>
+    <link>/tags/reverse-engineering/</link>
+    <description>Recent content in reverse engineering on /home/</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 26 Oct 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/reverse-engineering/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>come ctf with me #3 - metactf 2020 part 1 - password here please</title>
+      <link>/posts/metactf2020_passwordhereplease/</link>
+      <pubDate>Mon, 26 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/metactf2020_passwordhereplease/</guid>
+      <description>MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
+Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account.</description>
+    </item>
+    
+  </channel>
+</rss>
