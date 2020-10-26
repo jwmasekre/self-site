@@ -10,7 +10,7 @@ showFullContent = false
 +++
 
 # MetaCTF 2020 - Password Here Please
-For this CTF, I'll upload the challenges I found interesting as individual write-ups. I don't know how many I'll do (time is a bastard) but I'll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
+For this CTF, I'll upload the challenges I found interesting as individual write-ups. I don't know how many I'll do (time is a bastard) but I'll try and get at least a few. For this challenge specifically, I have the [source code down below](#python%20script), as well as my [full script in the tl;dr](#tl;dr).
 
 ## Description
 ```
