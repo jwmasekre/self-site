@@ -13,13 +13,11 @@ showFullContent = false
 For this CTF, I'll upload the challenges I found interesting as individual write-ups. I don't know how many I'll do (time is a bastard) but I'll try and get at least a few. For this challenge specifically, I have the [source code down below](#python%20script), as well as my [full script in the tl;dr](#tl;dr).
 
 ## Description
-```
-I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don't lock myself out of my account. Unfortunately, I seem to have lost my password list as well...
-
-Could you take a look and see if you can find my password for me?
-
-Part 3 requires some math skills. To solve it, think about what is being done by the exponentiation step. Try rewriting the large number in base 257.
-```
+>I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don't lock myself out of my account. Unfortunately, I seem to have lost my password list as well...
+>
+>Could you take a look and see if you can find my password for me?
+>
+>Part 3 requires some math skills. To solve it, think about what is being done by the exponentiation step. Try rewriting the large number in base 257.
 
 ## methodology
 So this problem is realistically 4 parts: is the length right (`if(len(password[::-2]) != 12 or len(password[17:]) != 7):`), are first 8 chars right (`chunk1`), are second 8 chars right (`chunk2`), are last 8 chars right (`chunk3`). We'll tackle each part one by one, and should have a usable answer at the end.
