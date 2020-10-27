@@ -18,7 +18,7 @@
       
       <guid>/posts/metactf2020_passwordhereplease/</guid>
       <description>MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
-Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account.</description>
+Description  I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account.</description>
     </item>
     
   </channel>

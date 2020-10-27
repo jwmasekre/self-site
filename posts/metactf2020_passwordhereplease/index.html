@@ -7,7 +7,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta name="description" content="MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
-Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account."/>
+Description  I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account."/>
 <meta name="keywords" content=", "/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="/posts/metactf2020_passwordhereplease/" />
@@ -31,7 +31,7 @@ Description I forgot my bank account password! Luckily for me, I wrote a program
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="come ctf with me #3 - metactf 2020 part 1 - password here please :: /home/ — " />
 <meta name="twitter:description" content="MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
-Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account." />
+Description  I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account." />
 <meta name="twitter:site" content="/" />
 <meta name="twitter:creator" content="josh masek" />
 <meta name="twitter:image" content="/img/cg_2020_bonus.png">
@@ -41,7 +41,7 @@ Description I forgot my bank account password! Luckily for me, I wrote a program
 <meta property="og:type" content="article" />
 <meta property="og:title" content="come ctf with me #3 - metactf 2020 part 1 - password here please :: /home/ — ">
 <meta property="og:description" content="MetaCTF 2020 - Password Here Please For this CTF, I&#39;ll upload the challenges I found interesting as individual write-ups. I don&#39;t know how many I&#39;ll do (time is a bastard) but I&#39;ll try and get at least a few. For this challenge specifically, I have the source code down below, as well as my full script in the tl;dr.
-Description I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account." />
+Description  I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don&#39;t lock myself out of my account." />
 <meta property="og:url" content="/posts/metactf2020_passwordhereplease/" />
 <meta property="og:site_name" content="come ctf with me #3 - metactf 2020 part 1 - password here please" />
 <meta property="og:image" content="/img/cg_2020_bonus.png">
@@ -169,12 +169,12 @@ Description I forgot my bank account password! Luckily for me, I wrote a program
     <h1 id="metactf-2020---password-here-please">MetaCTF 2020 - Password Here Please</h1>
 <p>For this CTF, I'll upload the challenges I found interesting as individual write-ups. I don't know how many I'll do (time is a bastard) but I'll try and get at least a few. For this challenge specifically, I have the <a href="#python%20script">source code down below</a>, as well as my <a href="#tl;dr">full script in the tl;dr</a>.</p>
 <h2 id="description">Description</h2>
-<pre><code>I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don't lock myself out of my account. Unfortunately, I seem to have lost my password list as well...
-
-Could you take a look and see if you can find my password for me?
-
-Part 3 requires some math skills. To solve it, think about what is being done by the exponentiation step. Try rewriting the large number in base 257.
-</code></pre><h2 id="methodology">methodology</h2>
+<blockquote>
+<p>I forgot my bank account password! Luckily for me, I wrote a program that checks if my password is correct just in case I forgot which password I used, so this way I don't lock myself out of my account. Unfortunately, I seem to have lost my password list as well&hellip;</p>
+<p>Could you take a look and see if you can find my password for me?</p>
+<p>Part 3 requires some math skills. To solve it, think about what is being done by the exponentiation step. Try rewriting the large number in base 257.</p>
+</blockquote>
+<h2 id="methodology">methodology</h2>
 <p>So this problem is realistically 4 parts: is the length right (<code>if(len(password[::-2]) != 12 or len(password[17:]) != 7):</code>), are first 8 chars right (<code>chunk1</code>), are second 8 chars right (<code>chunk2</code>), are last 8 chars right (<code>chunk3</code>). We'll tackle each part one by one, and should have a usable answer at the end.</p>
 <h2 id="part-1---length">part 1 - length</h2>
 <p>The code is doing some math on the length of the provided password and checking if it matches those. Realistically, you could just brute force this by inputing <code>A</code>, then <code>AA</code>, etc, but this is how the math works: the colon (<code>:</code>) is being used as a slice operator, which is in the form of <code>[start]:[stop]:[step]</code>, with the defaults being index 0, end, and 1 respectively. Also, using a negative just reverses everything, so for <code>[::-2]</code>, what it's doing is starting at the end, working to the beginning, and skipping every other, to end with a list that would turn <code>123456789012345678901234</code> into <code>[4, 2, 0, 8, 6, 4, 2, 0, 8, 6, 4, 2]</code>. then, we're taking <code>len()</code> (length) of that, which in this case is 12. At this point, just by reading that first bit, we should know that the length is 24, but we can check the other part (which is an or, and could be different). This one is <code>[17:]</code>, which is starting at 17 and working its way to the end, stepping by one. the <code>len()</code> of the result needs to be 7 to pass, so <code>17 + 7 = 24</code> and we have our confirmation that the password is <strong>24 characters long</strong>.</p>
